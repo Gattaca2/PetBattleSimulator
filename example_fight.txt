@@ -1,0 +1,134 @@
+"""
+boneshard is now your active pet
+prototype annoy-o-tron is now enemy active pet.
+
+round 1
+annoy-o-tron cast [annoying shield]
+annoy-o-tron cast [annoying shield]
+[annoying shield] applied [annoying shield] to annoy-o-tron
+annoy-o-tron cast [annoying shield]
+self used standby
+
+round 2
+[sonic detonator] dealt 272 damage to your boneshard
+[sonic detonator] dealt 68 damage to your ikky
+[sonic detonator] dealt 44 damage to your soul of the forge (weak)
+[annoying shield] fades from annoy-o-tron
+
+round 3
+[sonic blast] dealt 340 damage to your boneshard
+[ice spike] missed enemy annoy-o-tron
+
+round 4
+[sonic blast] dealt 340 damage to your boneshard
+[blistering cold] applied [blistering cold] to enemy team
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+
+round 5
+[sonic blast] dealt 340 damage to your boneshard
+[chop] dealt 74 damage to annoy-o-tron
+[chop] applied [bleeding] to annoy-o-tron
+[frostbite] dealt 22 damage to annoy-o-tron
+[bleeding] dealt 37 damage to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+
+round 6
+annoy-o-tron cast [annoying shield]
+annoy-o-tron cast [annoying shield]
+[annoying shield] applied [annoying shield] to annoy-o-tron
+[frostbite] dealt 22 damage to annoy-o-tron
+[bleeding] dealt 37 damage to annoy-o-tron
+[frostbite] dealt 22 damage to annoy-o-tron
+[blistering cold] was blocked from striking annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+annoy-o-tron cast [annoying shield]
+
+round 7
+[sonic detonator] dealt 272 damage to your boneshard
+your boneshard died
+[damned] healed 15 damage from your boneshard
+[damned] applied [undead] to your boneshard
+[sonic detonator] dealt 68 damage to your ikky
+[sonic detonator] dealt 44 damage to your soul of the forge (weak)
+[blistering cold] applied [blistering cold] to enemy team
+[frostbite] dealt 16 damage to annoy-o-tron
+[bleeding] dealt 27 damage to annoy-o-tron
+[frostbite] dealt 16 damage to annoy-o-tron
+[blistering cold] was blocked from striking annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[annoying shield] fades from annoy-o-tron
+
+round 8
+[sonic blast] dealt 14 damage to your boneshard
+[chop] dealt 55 damage to annoy-o-tron
+[chop] applied [bleeding] to annoy-o-tron
+[frostbite] dealt 16 damage to annoy-o-tron
+[bleeding] dealt 27 damage to annoy-o-tron
+[frostbite] dealt 16 damage to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[undead] fades from your boneshard
+[undead] dealt 1 damage to your boneshard
+your boneshard died
+ikky is now your active pet
+
+round 9
+[black claw] applied [black claw] to annoy-o-tron
+[sonic blast] dealt 340 damage to your ikky
+[frostbite] dealt 124 damage to annoy-o-tron (strong)
+[bleeding] dealt 105 damage to annoy-o-tron
+[frostbite] dealt 124 damage to annoy-o-tron (strong)
+[frostbite] dealt 124 damage to annoy-o-tron (strong)
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+
+round 10
+[flock] dealt 141 damage to annoy-o-tron
+[flock] dealt 94 damage to annoy-o-tron
+[flock] dealt 94 damage to annoy-o-tron
+[flock] applied [shattered defenses] to annoy-o-tron
+[sonic blast] dealt 340 damage to your ikky
+[flying] fades from your ikky
+[frostbite] dealt 561 damage to annoy-o-tron (critical)
+[bleeding] dealt 316 damage to annoy-o-tron
+[frostbite] dealt 374 damage to annoy-o-tron (strong)
+[frostbite] dealt 374 damage to annoy-o-tron (strong)
+annoy-o-tron died
+[failsafe] healed 527 damage from annoy-o-tron
+[failsafe] applied [mechanical] to annoy-o-tron
+[frostbite] dealt 374 damage to annoy-o-tron (strong)
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+
+round 11
+annoy-o-tron cast [annoying shield]
+[flock] was blocked from striking annoy-o-tron
+[flock] was blocked from striking annoy-o-tron
+[flock] was blocked from striking annoy-o-tron
+[frostbite] dealt 374 damage to annoy-o-tron (strong)
+annoy-o-tron died
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] applied [frostbite] to annoy-o-tron
+[blistering cold] fades from enemy team
+annoy-o-tron cast [annoying shield]
+[battle recovery] healed 408 damage from your ikky
+[battle recovery] healed 44 damage from your soul of the forge
+
+"""
