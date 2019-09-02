@@ -1,4 +1,6 @@
 """
+boneshard, ikky, soul of the forge
+
 boneshard is now your active pet
 prototype annoy-o-tron is now enemy active pet.
 
