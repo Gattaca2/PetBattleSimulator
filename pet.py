@@ -149,56 +149,96 @@ class Pet:
     ability_1_choices = [None]
     ability_2_choices = [None]
     ability_3_choices = [None]
+    
+    ability_1 = None
+    ability_1_name = None
+    ability_1_id = None
+    ability_2 = None
+    ability_2_name = None
+    ability_2_id = None
+    ability_3 = None
+    ability_3_name = None
+    ability_3_id = None
 
-    def __init__(this, pet_id=None, breed=None, quality=None, level=None):
+    def __init__(self, pet_id=None, breed=None, quality=None, level=None):
+    
         # Calculate health based on level, quality, and breed
         # the 5, 10, and 100 here are just magic numbers from WoW calculations
         temp_health = (
-            (this.health_stat + (BREED["HEALTH"][this.breed] / 10))
+            (self.health_stat + (BREED["HEALTH"][self.breed] / 10))
             * 5
-            * this.level
-            * this.quality
+            * self.level
+            * self.quality
         ) + 100
 
         # oddly, it rounds up only if its above 0.5
         if temp_health - math.trunc(temp_health) > 0.5:
-            this.leveled_health = math.ceil(temp_health)
+            self.leveled_health = math.ceil(temp_health)
         else:
-            this.leveled_health = math.floor(temp_health)
+            self.leveled_health = math.floor(temp_health)
 
         # Calculate power based on level, quality, and breed
         temp_power = (
-            (this.power_stat + (BREED["POWER"][this.breed] / 10))
-            * this.level
-            * this.quality
+            (self.power_stat + (BREED["POWER"][self.breed] / 10))
+            * self.level
+            * self.quality
         )
 
         if temp_power - math.trunc(temp_power) > 0.5:
-            this.leveled_power = math.ceil(temp_power)
+            self.leveled_power = math.ceil(temp_power)
         else:
-            this.leveled_power = math.floor(temp_power)
+            self.leveled_power = math.floor(temp_power)
 
         # Calculate speed based on level, quality, and breed
         temp_speed = (
-            (this.power_stat + (BREED["SPEED"][this.breed] / 10))
-            * this.level
-            * this.quality
+            (self.speed_stat + (BREED["SPEED"][self.breed] / 10))
+            * self.level
+            * self.quality
         )
 
         if temp_speed - math.trunc(temp_speed) > 0.5:
-            this.leveled_speed = math.ceil(temp_speed)
+            self.leveled_speed = math.ceil(temp_speed)
         else:
-            this.leveled_speed = math.floor(temp_speed)
+            self.leveled_speed = math.floor(temp_speed)
+            
+        self.current_health = self.leveled_health
+        self.current_power = self.leveled_power
+        self.current_speed = self.leveled_speed
 
         # Print the values for a sanity check
         print(
-            "health: {}\npower: {}\nspeed: {}\n".format(
-                this.leveled_health, this.leveled_power, this.leveled_speed
+            "name: {}\nhealth: {}\npower: {}\nspeed: {}\n".format(
+                self.name, self.leveled_health, self.leveled_power, self.leveled_speed
             )
         )
+        
+    def use_ability(self, ability):
+        power = self.get_power()
+        
+        if(ability == self.ability_1_name or ability == self.ability_1_id or ability == "#1"):
+            return self.ability_1.use(power)
+        elif(ability == self.ability_2_name or ability == self.ability_2_id or ability == "#2"):
+            return self.ability_2.use(power)
+        elif(ability == self.ability_3_name or ability == self.ability_3_id or ability == "#3"):
+            return self.ability_3.use(power)
+        else:
+            print("error in use_ability")
+        
 
-    def receive_attack(attack_object):
+    def receive_attack(self, attack_object):
         pass
+        
+    def get_name(self):
+        return self.name
+        
+    def get_health(self):
+        return self.current_health
+        
+    def get_power(self):
+        return self.current_power
+        
+    def get_speed(self):
+        return self.current_speed
 
 
 class Prototype_Annoy_O_Tron(Pet):
@@ -219,10 +259,14 @@ class Prototype_Annoy_O_Tron(Pet):
     name = "Prototype Annoy-O-Tron"
     pet_type = PetType.MECHANICAL
     id = 146001
+    quality = 1.3
+    breed = "B/B"
+    level = 25
+    elite = True
 
-    health_stat = 2250
-    power_stat = 247
-    speed_stat = 276
+    health_stat = 12.73
+    power_stat = 7.1
+    speed_stat = 8
 
     ability_1 = Sonic_Blast()
     ability_2 = Sonic_Detonator()
@@ -232,11 +276,11 @@ class Prototype_Annoy_O_Tron(Pet):
 class Boneshard(Pet):
 
     name = "Boneshard"
-    pet_type = PetType.ELEMENTAL
+    pet_type = PetType.UNDEAD
     id = 115146
-    quality = (
-        1.3
-    )  # 1.0 = poor, 1.1 = common, 1.2 = uncommon, 1.3 = rare, 1.4 = epic, 1.5 = legendary
+    
+    # 1.0 = poor, 1.1 = common, 1.2 = uncommon, 1.3 = rare, 1.4 = epic, 1.5 = legendary
+    quality = 1.3
     breed = "B/B"
     level = 25
 
@@ -244,6 +288,46 @@ class Boneshard(Pet):
     power_stat = 8
     speed_stat = 8
 
-    ability_1 = Chop()
-    ability_2 = Blistering_Cold()
-    ability_3 = Ice_Spike()
+    ability_1_choices = [Chop(1), Bonestorm(10)]
+    ability_2_choices = [Blistering_Cold(2), Bonestorm(15)]
+    ability_3_choices = [Ice_Spike(4), Bonestorm(20)]
+    
+    ability_1 = ability_1_choices[0]
+    ability_2 = ability_2_choices[0]
+    ability_3 = ability_3_choices[0]
+    
+    
+class Ikky(Pet):
+    
+    name = "Ikky"
+    pet_type = PetType.FLYING
+    id = 86447
+    quality = 1.3
+    breed = "P/S"
+    level = 25
+    
+    health_stat = 7.5
+    power_stat = 9
+    speed_stat = 7.5
+    
+    ability_1 = Quills()
+    ability_2 = Black_Claw()
+    ability_3 = Flock()
+    
+class Soul_of_the_Forge(Pet):
+
+    name = "Soul of the Forge"
+    pet_type = PetType.ELEMENTAL
+    id = 84853
+    quality = 1.3
+    breed = "H/P"
+    level = 25
+    
+    health_stat = 9.75
+    power_stat = 7.25
+    speed_stat = 7
+    
+    ability_1 = Sulfuras_Smash()
+    ability_2 = Extra_Plating()
+    ability_3 = Reforge()
+    

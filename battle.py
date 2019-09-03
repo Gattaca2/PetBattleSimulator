@@ -31,14 +31,26 @@ class Simulator:
         
         Prototype Annoy-O-Tron H/H 4(Sonic Blast, Sonic Detonator, Annoying Shield)
         """
-        team_player = Team()
-        team_enemy = Team()
-        pass
+        self.team_player = Boneshard()
+        self.team_enemy = Prototype_Annoy_O_Tron()
+        self.select_attack()
 
-    def select_attack():
-        pass
+    def select_attack(self):
+        """ The action priority list should be loaded in and interpreted here 
+        ability(Blistering Cold:786) [ round>3 ]
+        standby [ round~1,2,6 ]
+        ability(Chop:943) [ round>4 ]
+        ability(Ice Spike:625)
+        change(#2)
+        ability(Black Claw:919) [ !enemy.aura(Black Claw:918).exists ]
+        ability(Flock:581)
+        """
+        
+        player_attack_object = self.team_player.use_ability("#1")
+        enemy_attack_object = self.team_enemy.use_ability("#1")
+        print(attack_object["frontline_damage"]["normal"])
 
-    def stage_zero():
+    def stage_zero(self):
         pass
 
 
@@ -75,5 +87,5 @@ class Dot:
     def __init__(self):
         pass
 
-
-pet = Boneshard()
+game = Simulator()
+#pet = Boneshard()
