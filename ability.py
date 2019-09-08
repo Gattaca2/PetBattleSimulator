@@ -16,7 +16,7 @@ class Ability:
     turns_remaining = None
     split_damage = False
     split_healing = False
-    
+
     def __init__(self, level=None):
         if level != None:
             self.level = level
@@ -44,7 +44,8 @@ class Ability:
             "friendly_pet_aura": self.friendly_pet_aura(power),
             "friendly_team_aura": self.friendly_team_aura(power),
             "split_damage": self.get_split_damage(),
-            "split_healing": self.get_split_healing()
+            "split_healing": self.get_split_healing(),
+            "standby": False,
         }
 
     def get_name(self):
@@ -67,7 +68,7 @@ class Ability:
 
     def decrement_cooldown_remaining(self):
         self.cooldown_remaining -= 1
-        
+
     def get_goes_first(self):
         return self.goes_first
 
@@ -79,7 +80,7 @@ class Ability:
 
     def decrement_turns_remaining(self):
         self.turns_remaining -= 1
-        
+
     def get_split_damage(self):
         return self.split_damage
 
@@ -120,18 +121,18 @@ class Chop(Ability):
     def calculate_frontline_damage(self, power):
 
         return {
-            "strong": math.round((10 + power / 2) * 1.5),
-            "normal": math.round(10 + power / 2),
-            "weak": math.round((10 + power / 2) * 0.66),
+            "strong": round((10 + power / 2) * 1.5),
+            "normal": round(10 + power / 2),
+            "weak": round((10 + power / 2) * 0.66),
         }
 
     def enemy_pet_aura(self, power):
         # bleed = (5 + power/4) # bleed for 5 rounds
-        return Bleed(math.round(5 + power / 4), 5)
+        return Bleed(round(5 + power / 4), 5)
 
 
 class Blistering_Cold(Ability):
-    #priority
+    # priority
     ability_type = PetType.ELEMENTAL
     cooldown = 2
     accuracy = 1.0
@@ -139,86 +140,93 @@ class Blistering_Cold(Ability):
 
 
 class Ice_Spike(Ability):
-    #priority
+    # priority
     ability_type = PetType.ELEMENTAL
     cooldown = 2
 
 
 class Sonic_Blast(Ability):
-    
+
     ability_type = PetType.ELEMENTAL
     accuracy = 1.0
-    
+
     def calculate_frontline_damage(self, power):
 
         return {
-            "strong": math.round((25 + power * 1.275) * 1.5),
-            "normal": math.round(25 + power * 1.275),
-            "weak": math.round((25 + power * 1.275) * 0.66),
+            "strong": round((25 + power * 1.275) * 1.5),
+            "normal": round(25 + power * 1.275),
+            "weak": round((25 + power * 1.275) * 0.66),
         }
 
 
 class Sonic_Detonator(Ability):
-    #priority
+    # priority
     ability_type = PetType.MECHANICAL
     accuracy = 1.0
-    #247 power    
-    
+    # 247 power
+
     def calculate_frontline_damage(self, power):
-    
+
         # 408 (strong)
         # 272 normal
         # 179 (weak)
         return {
-            "strong": math.round((20 + power * 1.02) * 1.5),
-            "normal": math.round(20 + power * 1.02),
-            "weak": math.round((20 + power * 1.02) * 0.66),
+            "strong": round((20 + power * 1.02) * 1.5),
+            "normal": round(20 + power * 1.02),
+            "weak": round((20 + power * 1.02) * 0.66),
         }
-        
+
     def calculate_backline_damage(self, power):
-    
+
         # 179 (strong)(critical)
         # 102 (strong)
         # 68 normal
         # 44 (weak)
         return {
-            "strong": math.round((5 + power * 0.255) * 1.5),
-            "normal": math.round(5 + power * 0.255),
-            "weak": math.round((5 + power * 0.255) * 0.66),
+            "strong": round((5 + power * 0.255) * 1.5),
+            "normal": round(5 + power * 0.255),
+            "weak": round((5 + power * 0.255) * 0.66),
         }
 
 
 class Annoying_Shield(Ability):
-    #priority
+    # priority
     ability_type = PetType.MECHANICAL
 
-    
+
 class Quills(Ability):
-    #don't bother
+    # don't bother
     ability_type = PetType.MECHANICAL
- 
+
+
 class Black_Claw(Ability):
-    #priority
+    # priority
     ability_type = PetType.MECHANICAL
- 
+
+
 class Flock(Ability):
-    #priority
+    # priority
     ability_type = PetType.MECHANICAL
- 
+
+
 class Sulfuras_Smash(Ability):
-    #don't bother
+    # don't bother
     ability_type = PetType.MECHANICAL
- 
+
+
 class Extra_Plating(Ability):
-    #don't bother
+    # don't bother
     ability_type = PetType.MECHANICAL
- 
+
+
 class Reforge(Ability):
-    #don't bother
+    # don't bother
     ability_type = PetType.MECHANICAL
-    
+
+
 class Bonestorm(Ability):
-    #don't bother
+    # don't bother
     ability_type = PetType.MECHANICAL
- 
+
+
 # ice spike, blistering cold, chop, pass, black claw, flock, Sonic_Blast, Sonic_Detonator, Annoying_Shield

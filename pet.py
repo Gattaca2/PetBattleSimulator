@@ -124,6 +124,8 @@ class Pet:
     quality = None
     elite = None
     level = None
+    played = False
+    alive = True
 
     # This is the basic stat allotment each pet has. For the majority of player
     # aquirable pets, this will sum to 24. Generally will be a multiple of 0.25
@@ -149,7 +151,7 @@ class Pet:
     ability_1_choices = [None]
     ability_2_choices = [None]
     ability_3_choices = [None]
-    
+
     ability_1 = None
     ability_1_name = None
     ability_1_id = None
@@ -160,47 +162,15 @@ class Pet:
     ability_3_name = None
     ability_3_id = None
 
-    def __init__(self, pet_id=None, breed=None, quality=None, level=None):
-    
-        # Calculate health based on level, quality, and breed
-        # the 5, 10, and 100 here are just magic numbers from WoW calculations
-        temp_health = (
-            (self.health_stat + (BREED["HEALTH"][self.breed] / 10))
-            * 5
-            * self.level
-            * self.quality
-        ) + 100
+    def __init__(self, breed="B/B", quality=1.0, level=1, health=None):
 
-        # oddly, it rounds up only if its above 0.5
-        if temp_health - math.trunc(temp_health) > 0.5:
-            self.leveled_health = math.ceil(temp_health)
-        else:
-            self.leveled_health = math.floor(temp_health)
+        # Calculate how much health/power/speed pet has at this level/breed/quality
+        # These will be static and unchanging throughout the fight
+        self.leveled_health = self.calculate_health(breed, quality, level)
+        self.leveled_power = self.calculate_power(breed, quality, level)
+        self.leveled_speed = self.calculate_speed(breed, quality, level)
 
-        # Calculate power based on level, quality, and breed
-        temp_power = (
-            (self.power_stat + (BREED["POWER"][self.breed] / 10))
-            * self.level
-            * self.quality
-        )
-
-        if temp_power - math.trunc(temp_power) > 0.5:
-            self.leveled_power = math.ceil(temp_power)
-        else:
-            self.leveled_power = math.floor(temp_power)
-
-        # Calculate speed based on level, quality, and breed
-        temp_speed = (
-            (self.speed_stat + (BREED["SPEED"][self.breed] / 10))
-            * self.level
-            * self.quality
-        )
-
-        if temp_speed - math.trunc(temp_speed) > 0.5:
-            self.leveled_speed = math.ceil(temp_speed)
-        else:
-            self.leveled_speed = math.floor(temp_speed)
-            
+        # Mutable values. health will change as damaged, speed can be boosted / retarded
         self.current_health = self.leveled_health
         self.current_power = self.leveled_power
         self.current_speed = self.leveled_speed
@@ -211,34 +181,91 @@ class Pet:
                 self.name, self.leveled_health, self.leveled_power, self.leveled_speed
             )
         )
-        
+
+    def calculate_health(self, breed, quality, level):
+        # Calculate health based on level, quality, and breed
+        # the 5, 10, and 100 here are just magic numbers from WoW calculations
+        temp_health = (
+            (self.health_stat + (BREED["HEALTH"][breed] / 10)) * 5 * level * quality
+        ) + 100
+
+        # oddly, it rounds up only if its above 0.5
+        if temp_health - math.trunc(temp_health) > 0.5:
+            temp_health = math.ceil(temp_health)
+        else:
+            temp_health = math.floor(temp_health)
+
+        return temp_health
+
+    def calculate_power(self, breed, quality, level):
+        # Calculate power based on level, quality, and breed
+        temp_power = (self.power_stat + (BREED["POWER"][breed] / 10)) * level * quality
+
+        if temp_power - math.trunc(temp_power) > 0.5:
+            temp_power = math.ceil(temp_power)
+        else:
+            temp_power = math.floor(temp_power)
+
+        return temp_power
+
+    def calculate_speed(self, breed, quality, level):
+        # Calculate speed based on level, quality, and breed
+        temp_speed = (self.speed_stat + (BREED["SPEED"][breed] / 10)) * level * quality
+
+        if temp_speed - math.trunc(temp_speed) > 0.5:
+            temp_speed = math.ceil(temp_speed)
+        else:
+            temp_speed = math.floor(temp_speed)
+
+        return temp_speed
+
     def use_ability(self, ability):
         power = self.get_power()
-        
-        if(ability == self.ability_1_name or ability == self.ability_1_id or ability == "#1"):
+
+        if (
+            ability == self.ability_1_name
+            or ability == self.ability_1_id
+            or ability == "#1"
+        ):
             return self.ability_1.use(power)
-        elif(ability == self.ability_2_name or ability == self.ability_2_id or ability == "#2"):
+        elif (
+            ability == self.ability_2_name
+            or ability == self.ability_2_id
+            or ability == "#2"
+        ):
             return self.ability_2.use(power)
-        elif(ability == self.ability_3_name or ability == self.ability_3_id or ability == "#3"):
+        elif (
+            ability == self.ability_3_name
+            or ability == self.ability_3_id
+            or ability == "#3"
+        ):
             return self.ability_3.use(power)
         else:
             print("error in use_ability")
-        
 
     def receive_attack(self, attack_object):
         pass
-        
+
     def get_name(self):
         return self.name
-        
+
     def get_health(self):
         return self.current_health
-        
+
     def get_power(self):
         return self.current_power
-        
+
     def get_speed(self):
         return self.current_speed
+
+    def is_alive(self):
+        return self.alive
+
+    def is_played(self):
+        return self.played
+
+    def set_played(self):
+        self.played = True
 
 
 class Prototype_Annoy_O_Tron(Pet):
@@ -259,9 +286,6 @@ class Prototype_Annoy_O_Tron(Pet):
     name = "Prototype Annoy-O-Tron"
     pet_type = PetType.MECHANICAL
     id = 146001
-    quality = 1.3
-    breed = "B/B"
-    level = 25
     elite = True
 
     health_stat = 12.73
@@ -278,11 +302,8 @@ class Boneshard(Pet):
     name = "Boneshard"
     pet_type = PetType.UNDEAD
     id = 115146
-    
+
     # 1.0 = poor, 1.1 = common, 1.2 = uncommon, 1.3 = rare, 1.4 = epic, 1.5 = legendary
-    quality = 1.3
-    breed = "B/B"
-    level = 25
 
     health_stat = 8
     power_stat = 8
@@ -291,29 +312,30 @@ class Boneshard(Pet):
     ability_1_choices = [Chop(1), Bonestorm(10)]
     ability_2_choices = [Blistering_Cold(2), Bonestorm(15)]
     ability_3_choices = [Ice_Spike(4), Bonestorm(20)]
-    
+
     ability_1 = ability_1_choices[0]
     ability_2 = ability_2_choices[0]
     ability_3 = ability_3_choices[0]
-    
-    
+
+
 class Ikky(Pet):
-    
+
     name = "Ikky"
     pet_type = PetType.FLYING
     id = 86447
     quality = 1.3
     breed = "P/S"
     level = 25
-    
+
     health_stat = 7.5
     power_stat = 9
     speed_stat = 7.5
-    
+
     ability_1 = Quills()
     ability_2 = Black_Claw()
     ability_3 = Flock()
-    
+
+
 class Soul_of_the_Forge(Pet):
 
     name = "Soul of the Forge"
@@ -322,12 +344,11 @@ class Soul_of_the_Forge(Pet):
     quality = 1.3
     breed = "H/P"
     level = 25
-    
+
     health_stat = 9.75
     power_stat = 7.25
     speed_stat = 7
-    
+
     ability_1 = Sulfuras_Smash()
     ability_2 = Extra_Plating()
     ability_3 = Reforge()
-    
